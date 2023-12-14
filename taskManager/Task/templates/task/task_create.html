@@ -1,0 +1,21 @@
+{% extends 'Task/base.html' %}
+{% load bootstrap4 %}
+
+{% block title %}Создание задачи{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <h2>Создание задачи</h2>
+                <form method="post">
+                    {% csrf_token %}
+
+                    {% bootstrap_form form %}
+
+                    <button type="submit" class="btn btn-primary">Создать</button>
+                </form>
+                <br>
+            <a href="{% url 'Task:task_list' %}" class="btn btn-secondary">Вернуться к списку задач</a>
+        </div>
+    </div>
+{% endblock %}

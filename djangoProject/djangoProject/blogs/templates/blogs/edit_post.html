@@ -1,0 +1,28 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+
+
+    <title>Редактировать</title>
+    <!-- Подключаем Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container"> <!-- Обернем всё в контейнер для выравнивания -->
+        <h1>Редактировать запись</h1>
+        <form method="post">
+            {% csrf_token %}
+            <!-- Добавим классы Bootstrap к форме и кнопке -->
+            <form class="form">
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary">Сохранить</button>
+            </form>
+        </form>
+    </div>
+
+    <!-- Подключаем Bootstrap JS (необходим для некоторых функций) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core"></script>
+

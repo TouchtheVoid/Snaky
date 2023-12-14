@@ -1,0 +1,16 @@
+{% extends 'Task/base.html' %}
+
+{% block title %}Выйти{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <h2 class="mt-4">Выйти</h2>
+            <p class="lead">Уверены что хотите выйти ?</p>
+            <form method="post" action="{% url 'Task:user_logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Выйти</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

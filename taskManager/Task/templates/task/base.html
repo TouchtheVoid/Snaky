@@ -1,0 +1,78 @@
+{% load bootstrap4 %}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>TaskManager</title>
+    {% bootstrap_css %}
+    {% bootstrap_javascript jquery='full' %}
+    <style>
+
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        .navbar-nav {
+            margin-left: auto;
+        }
+
+        .navbar-nav .nav-item {
+            margin-left: 10px;
+        }
+
+        .container {
+            margin-top: 20px;
+        }
+
+        .page-header {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .border-bottom {
+            border-bottom: 1px solid #dee2e6;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+    <a class="navbar-brand" href="{% url 'Task:task_list' %}">ToDo</a>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+        {% if user.is_authenticated %}
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <span class="nav-link">{{ user }}</span>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'Task:user_logout' %}">Выйти</a>
+                </li>
+            </ul>
+        {% else %}
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'Task:register' %}">Регистрация</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'Task:login' %}">Логин</a>
+                </li>
+            </ul>
+        {% endif %}
+    </div>
+</nav>
+
+<main role="main" class="container">
+    <div class="pb-2 mb-2 border-bottom">
+        <h1 class="page-header">{% block page_header %}{% endblock page_header %}</h1>
+    </div>
+    <div>
+        {% block content %}{% endblock content %}
+    </div>
+</main>
+
+</body>
+</html>

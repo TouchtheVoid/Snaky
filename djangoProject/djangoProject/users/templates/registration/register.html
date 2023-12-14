@@ -1,0 +1,24 @@
+
+{% load bootstrap4 %}
+<head>
+    {% bootstrap_css %}
+	{% bootstrap_javascript jquery='full' %}
+</head>
+{% block page_header %}
+  <h2>Register</h2>
+{% endblock page_header %}
+
+{% block content %}
+  <form method="post" action="{% url 'users:register' %}" class="form">
+
+    {% csrf_token %}
+    {% bootstrap_form form %}
+
+    {% buttons %}
+      <button name="submit" class="btn btn-primary">Register</button>
+      <a href="{% url 'blogs:home' %}" class="btn btn-secondary">Назад</a>
+    {% endbuttons %}
+
+    <input type="hidden" name="next" value="{% url 'blogs:home' %}" />
+  </form>
+{% endblock content %}

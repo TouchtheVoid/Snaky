@@ -1,0 +1,22 @@
+{% extends 'Task/base.html' %}
+{% load bootstrap4 %}
+
+{% block title %}Авторизация{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <h2>Авторизация</h2>
+        <form method="post">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+
+            {% buttons %}
+      	        <button name="submit" class="btn btn-primary">Войти</button>
+	        {% endbuttons %}
+        </form>
+        <br>
+        <p>Нет учетной запись? <a href="{% url 'Task:register' %}">Зарегистрируйтесь здесь</a>.</p>
+    </div>
+</div>
+{% endblock %}

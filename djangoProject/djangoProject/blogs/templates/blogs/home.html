@@ -1,0 +1,63 @@
+
+{% load static %}
+
+
+<!DOCTYPE html>
+<html>
+{%  block additional_styles %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+{% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+        <h1>Личный блог </h1>
+        {% if user.is_authenticated %}
+            <p>Привествую!, {{ user.username }}.</p>
+            <a href="{% url 'users:logout' %}" class="btn btn-secondary">Выйти</a>
+            {% if user.is_staff %}
+                <a href="{% url 'blogs:create_post' %}" class="btn btn-secondary">Создать пост</a>
+            {% endif %}
+        {% else %}
+            <a href="{% url 'users:register' %}" class="btn btn-primary">Регистрация</a>
+            <a href="{% url 'users:login' %}" class="btn btn-primary">Войти</a>
+        {% endif %}
+        <ul class="list-group">
+            {% for post in posts %}
+                <li class="list-group-item">
+                    <h2>{{ post.title }}</h2>
+                    <p>{{ post.text }}</p>
+                    <p>Дата добавления: {{ post.date_added }}</p>
+
+ <div class="btn-group">
+    <a href="{% url 'blogs:like_post' post.id %}" class="">
+        <i class="fas fa-thumbs-up"></i>
+    </a>
+    <span id="likes_count_{{ post.id }}" class="like-count">{{ post.likes.count }}</span>
+
+    <a href="{% url 'blogs:dislike_post' post.id %}" class="">
+        <i class="fas fa-thumbs-down"></i>
+    </a>
+    <span id="dislikes_count_{{ post.id }}" class="dislike-count">{{ post.dislikes.count }}</span>
+</div>
+                    {% if post.author == user %}
+                        <a href="{% url 'blogs:edit_post' post.id %}" class="btn btn-secondary">Редактировать</a>
+                    {% endif %}
+
+                    <!-- Отображение комментариев для данной записи -->
+                    <ul class="list-group">
+
+                        {% for comment in post.comments.all %}
+                            <li class="list-group-item">
+                                <strong>{{ comment.author.username }}:</strong> {{ comment.text }}
+                            </li>
+                        {% endfor %}
+
+                        <a href="{% url 'blogs:view_post' post.id %}" class="btn btn-primary">Комментировать</a>
+                    </ul>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endblock content %}
+</html>

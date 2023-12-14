@@ -1,0 +1,29 @@
+<head>
+    <!-- Подключаем Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<!-- Остальная часть шаблона для отображения поста -->
+<div class="container mt-5">
+    <h3>Комментарии:</h3>
+    <ul class="list-group">
+        {% for comment in comments %}
+            <li class="list-group-item">
+                <strong>{{ comment.author.username }}:</strong> {{ comment.text }}
+            </li>
+        {% endfor %}
+    </ul>
+
+    <!-- Форма для добавления нового комментария -->
+    <h3 class="mt-4">Добавить комментарий:</h3>
+    <form method="post" action="{% url 'blogs:view_post' post_id=post.id %}" class="form">
+        {% csrf_token %}
+        {{ comment_form.as_p }}
+        <button type="submit" class="btn btn-primary mt-2">Добавить комментарий</button>
+    </form>
+</div>
+
+<!-- Подключаем Bootstrap JS (необходим для некоторых функций) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
